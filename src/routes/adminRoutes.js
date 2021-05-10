@@ -2,7 +2,7 @@
 const express = require('express')
 const router = express.Router()
 const adminController  = require('../../src/controllers/adminController')
-
+const validatorMiddleware = require('../middlewares/validator_middleware')
 
 
 
@@ -12,7 +12,7 @@ router.post('/login',adminController.adminPostLogin)
 
 // REGISTER
 router.get('/register',adminController.adminGetRegister)
-router.post('/register',adminController.adminPostRegister)
+router.post('/register',validatorMiddleware.validateNewUser(),adminController.adminPostRegister)
 
 // FORGET-PASSWORD
 router.get('/forget-password',adminController.adminGetForgetPassword)

@@ -1,4 +1,4 @@
-
+const { validationResult } = require('express-validator')
 
 //________________________________ LOGIN ________________________________
 
@@ -20,10 +20,18 @@ exports.adminGetRegister = (req,res) => {
     res.render('register')
 }
 
-
 exports.adminPostRegister = (req,res) => {
-   console.log(req.body)
-    res.redirect('/')
+
+    const validErr = validationResult(req)
+
+    if(!validErr.isEmpty()){
+        res.render('register',{
+            validErr:validErr.array()
+        })
+    }
+
+
+  
 }
 
 
