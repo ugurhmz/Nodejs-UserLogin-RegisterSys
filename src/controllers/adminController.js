@@ -16,7 +16,7 @@ exports.adminPostLogin = (req,res) => {
 
 //________________________________ REGISTER ________________________________
 exports.adminGetRegister = (req,res) => {
-    
+    console.log(req.flash("validation_error"))
     res.render('register')
 }
 
@@ -25,13 +25,10 @@ exports.adminPostRegister = (req,res) => {
     const validErr = validationResult(req)
 
     if(!validErr.isEmpty()){
-        res.render('register',{
-            validErr:validErr.array()
-        })
+
+        req.flash("validation_error",validErr.array()) //ÇIKAN HATALARI DİZİYE DÖNÜŞTÜR SONRA -> validation_error yapısına ekle
+        res.redirect('/admin/register')
     }
-
-
-  
 }
 
 
