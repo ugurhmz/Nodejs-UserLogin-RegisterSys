@@ -4,47 +4,22 @@ require('dotenv').config()
 const path = require('path')
 const PORT  = process.env.PORT
 const connectDB = require('./src/utilities/database')
-const ejs = require('ejs')
-const expressLayouts = require('express-ejs-layouts')
+const adminRoutes = require('./src/routes/adminRoutes')
+const mainRoutes = require('./src/routes/mainRoutes')
 
 
 connectDB()
 
-app.use(express.static('public'))
+app.use(express.static('public'));
 
 
-app.set("view engine","ejs")
+
 app.set("views", path.resolve(__dirname,"./src/views"))
-app.use(expressLayouts)
+app.set("view engine","ejs")
 
 
-
-app.get('/',(req,res) => {
-
-   res.json({hi:'Hello'})
-})
-
-
-app.get('/login',(req,res) => {
-    res.render("login", { layout : './partials/_auth_layout.ejs'})
-})
-
-
-app.get('/register',(req,res) => {
-
-    res.render("register", {layout : './partials/_auth_layout.ejs' })
-
-})
-
-
-app.get("/forget-password" ,(req,res) => {
-
-    res.render("forget_password", {layout : './partials/_auth_layout.ejs' })
-
-})
-
-
-
+app.use('/admin',adminRoutes)
+app.use('/',mainRoutes)
 
 
 
