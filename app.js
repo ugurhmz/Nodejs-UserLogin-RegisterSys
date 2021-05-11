@@ -12,6 +12,13 @@ const flashMessage = require('connect-flash')
 
 connectDB()
 
+// MONGO DB  SAVE FOR SESSION
+const MongoDBStore = require('connect-mongodb-session')(session)
+const sessionStore = new MongoDBStore({
+    uri:process.env.MONGO_URL,
+    collection:'sessions'
+})
+
 
 
 // SESSION
@@ -19,7 +26,11 @@ app.use(session(
     {
         secret : process.env.SESSION_SECRET,
         resave : false,
-        saveUninitialized : true
+        saveUninitialized : true,
+        cookie : {
+            maxAge: 1000 * 60 * 60 * 24
+        },
+        store:sessionStore // Mongo DB 'ye kaydedilmesi için ->  Böylece artık DB'ye kaydedilecek
     }
 ))
 
@@ -32,7 +43,6 @@ app.use((req,res,next) => {
         res.locals.lastname = req.flash("lastname")
         res.locals.email = req.flash("email")
        
-        
 
         next()
     }
