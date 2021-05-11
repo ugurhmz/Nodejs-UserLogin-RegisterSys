@@ -1,13 +1,5 @@
 <%- include('partials/_header') -%>
 
-    <% if (locals.validation_error != undefined) { %>
-            <% validation_error.forEach(element => { %>
-                <h2><%= element.msg %></h2> 
-            <% }) %>
-    <% } %>
-
-
-
 
     <div class="container">
         <div class="card o-hidden border-0 shadow-lg my-5">
@@ -19,33 +11,60 @@
                         <div class="p-5">
                             <div class="text-center">
                                 <h1 class="h4 text-gray-900 mb-4">Create an Account!</h1>
+
+                                <%- include('./partials/_message.ejs') -%>
+
                             </div>
                             <form class="user" action="/admin/register" method="POST">
                                 <div class="form-group row">
                                     <div class="col-sm-6 mb-3 mb-sm-0">
-                                        <input type="text" name="firstname" class="form-control form-control-user" id="exampleFirstName"
-                                            placeholder="First Name">
+                                        <input type="text" style="font-size:1.3rem !important;" name="firstname"
+                                            class="form-control form-control-user" id="exampleFirstName"
+                                            placeholder="First Name"
+                                           <% if (typeof firstname !='undefined') { %>
+                                            value="<%=  firstname%>"
+                                           <% } else { %>
+                                                value=""
+                                            <% } %> 
+                                           >
                                     </div>
                                     <div class="col-sm-6">
-                                        <input type="text" name="lastname" class="form-control form-control-user" id="exampleLastName"
+                                        <input type="text" name="lastname" style="font-size:1.3rem !important;"
+                                            class="form-control form-control-user" id="exampleLastName"
+                                            
+                                            <% if (typeof lastname !='undefined') { %>
+                                                value="<%=  lastname%>"
+                                               <% } else { %>
+                                                    value=""
+                                                <% } %> 
+
+
+
                                             placeholder="Last Name">
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <input type="email" name="email" class="form-control form-control-user" id="exampleInputEmail"
+                                    <input type="email" name="email" style="font-size:1.3rem !important;"
+                                        class="form-control form-control-user" id="exampleInputEmail"
+                                        value="<%= typeof email !='undefined' ? email : ''%>"
                                         placeholder="Email Address">
                                 </div>
                                 <div class="form-group row">
                                     <div class="col-sm-6 mb-3 mb-sm-0">
-                                        <input type="password" name="password" class="form-control form-control-user"
+                                        <input type="password" style="font-size:1.3rem !important;" name="password"
+                                            class="form-control form-control-user"
+                                            
                                             id="exampleInputPassword" placeholder="Password">
                                     </div>
                                     <div class="col-sm-6">
-                                        <input type="password" name="repassword" class="form-control form-control-user"
+                                        <input type="password" style="font-size:1.3rem !important;" name="repassword"
+                                            class="form-control form-control-user"
+                                           
                                             id="exampleRepeatPassword" placeholder="Repeat Password">
                                     </div>
                                 </div>
-                                <button type="submit"  class="btn btn-primary btn-user btn-block">
+                                <button type="submit" style="font-size:1.3rem !important;"
+                                    class="btn btn-primary btn-user btn-block">
                                     Register Account
                                 </button>
                                 <hr>

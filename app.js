@@ -28,11 +28,15 @@ app.use(flashMessage())
 app.use((req,res,next) => {
 
         res.locals.validation_error = req.flash('validation_error')
+        res.locals.firstname = req.flash("firstname")
+        res.locals.lastname = req.flash("lastname")
+        res.locals.email = req.flash("email")
+       
+        
+
         next()
     }
 )
-
-
 
 
 // 

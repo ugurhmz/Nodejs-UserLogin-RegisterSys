@@ -1,0 +1,21 @@
+
+
+<% if (locals.validation_error != undefined) { %>
+    <% validation_error.forEach(elem => { %>
+        
+        <div class="card bg-danger text-white shadow mb-4 alert alert-danger alert-dismissible fade show" role="alert">
+            <%= elem.msg %>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+        </div>
+    
+
+    <% }) %>
+  
+<% } else  { %>
+
+    <h1>Güzel..</h1>
+
+<%  } %>
+     

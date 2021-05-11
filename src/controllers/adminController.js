@@ -27,7 +27,18 @@ exports.adminPostRegister = (req,res) => {
     if(!validErr.isEmpty()){
 
         req.flash("validation_error",validErr.array()) //ÇIKAN HATALARI DİZİYE DÖNÜŞTÜR SONRA -> validation_error yapısına ekle
+        req.flash("firstname", req.body.firstname)
+        req.flash("lastname", req.body.lastname)
+        req.flash("email", req.body.email)
+        
+       
+        
+    
         res.redirect('/admin/register')
+    
+    }
+    else {
+        res.redirect('/admin/login')
     }
 }
 
