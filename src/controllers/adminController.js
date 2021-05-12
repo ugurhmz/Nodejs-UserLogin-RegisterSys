@@ -1,4 +1,7 @@
 const { validationResult } = require('express-validator')
+const User = require('../models/userModel')
+
+
 
 //________________________________ LOGIN ________________________________
 
@@ -20,7 +23,7 @@ exports.adminGetRegister = (req,res) => {
     res.render('register')
 }
 
-exports.adminPostRegister = (req,res) => {
+exports.adminPostRegister = async (req,res) => {
 
     const validErr = validationResult(req)
 
@@ -30,15 +33,42 @@ exports.adminPostRegister = (req,res) => {
         req.flash("firstname", req.body.firstname)
         req.flash("lastname", req.body.lastname)
         req.flash("email", req.body.email)
-        
-       
-        
-    
+        req.flash("password",req.body.password)
+        req.flash("repassword",req.body.repassword)
         res.redirect('/admin/register')
     
     }
     else {
-        res.redirect('/admin/login')
+
+        const _user = await User.findOne({email : req.body.email})
+
+        if(_user){
+            req.flash("validation_error",[{msg:"This email already in use"}])
+            req.flash("firstname", req.body.firstname)
+            req.flash("lastname", req.body.lastname)
+            req.flash("email", req.body.email)
+            req.flash("password",req.body.password)
+            req.flash("repassword",req.body.repassword)
+            
+             res.status(404).redirect('/admin/register')
+             return;
+        }
+        else {
+            const newUser  = new User({
+                firstname : req.body.firstname,
+                lastname : req.body.lastname,
+                email : req.body.email,
+                password : req.body.password
+            })
+
+            await newUser.save()
+           
+            console.log("New user added successfull in db.")
+            res.status(200).redirect('/admin/login')
+            return;
+        }
+
+
     }
 }
 
