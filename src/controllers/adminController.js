@@ -18,23 +18,24 @@ exports.adminPostLogin = (req,res, next) => {
     
 
     const validErr = validationResult(req)
+    req.flash("email", req.body.email)
+    req.flash("password",req.body.password)
 
     if(!validErr.isEmpty()){
 
         req.flash("validation_error",validErr.array()) //ÇIKAN HATALARI DİZİYE DÖNÜŞTÜR SONRA -> validation_error yapısına ekle
-        req.flash("email", req.body.email)
-        req.flash("password",req.body.password)
-     
         res.redirect('/admin/login')
     
     }
-
-
+    else {
+        
     passport.authenticate('local',{
         successRedirect : '/admin/manage',
         failureRedirect : '/admin/login',
         failureFlash : true
     })(req,res,next)
+    }
+
    
 }
 

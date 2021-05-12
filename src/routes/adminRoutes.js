@@ -4,7 +4,7 @@ const router = express.Router()
 const adminController  = require('../../src/controllers/adminController')
 const adminManageController = require('../../src/controllers/adminManageController')
 const validatorMiddleware = require('../middlewares/validator_middleware')
-
+const authenticationMiddleware = require('../middlewares/authentication_middleware')
 
 
 // LOGIN
@@ -27,7 +27,7 @@ router.post('/forget-password',adminController.adminPostForgetPassword)
 
 
 // ADMIN-MANAGE
-router.get('/manage',adminManageController.getAdminManage)
+router.get('/manage',authenticationMiddleware.loggedinUser,adminManageController.getAdminManage)
 
 
 
