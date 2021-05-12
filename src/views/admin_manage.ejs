@@ -19,14 +19,16 @@
 
 
 
-
+              <% if (siteUser) { %>
             <div class="jumbotron jumbotron-fluid">
                 <div class="container d-flex justify-content-center">
-                  <h1 class="display-5">Welcome : <%= siteUser.email %> </h1>
+                  <h1 class="display-5">Welcome :
+                    <%= siteUser.email %>
+                </h1>
                  
                 </div>
               </div>
-
+              <% } %> 
 
         </div>
 

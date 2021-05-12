@@ -5,7 +5,6 @@ const path = require('path')
 const PORT  = process.env.PORT
 const connectDB = require('./src/utilities/database')
 const adminRoutes = require('./src/routes/adminRoutes')
-const mainRoutes = require('./src/routes/mainRoutes')
 const session = require('express-session')
 const flashMessage = require('connect-flash')
 const passport = require('passport')
@@ -35,6 +34,11 @@ app.use(session(
     }
 ))
 
+
+
+
+
+
 // FLASH MESSAGE
 app.use(flashMessage())
 app.use((req,res,next) => {
@@ -46,8 +50,6 @@ app.use((req,res,next) => {
         
         //PASSPORT ERROR MSG
         res.locals.login_error = req.flash("error")
-
-
 
 
         next()
@@ -73,7 +75,7 @@ app.set("view engine","ejs")
 
 // ROUTES
 app.use('/admin',adminRoutes)
-app.use('/',mainRoutes)
+
 
 
 

@@ -16,12 +16,22 @@ exports.adminGetLogin = (req,res) => {
 // post
 exports.adminPostLogin = (req,res, next) => {
     
-    req.flash('email',req.body.email)
-    req.flash('password',req.body.password)
+
+    const validErr = validationResult(req)
+
+    if(!validErr.isEmpty()){
+
+        req.flash("validation_error",validErr.array()) //ÇIKAN HATALARI DİZİYE DÖNÜŞTÜR SONRA -> validation_error yapısına ekle
+        req.flash("email", req.body.email)
+        req.flash("password",req.body.password)
+     
+        res.redirect('/admin/login')
+    
+    }
 
 
     passport.authenticate('local',{
-        successRedirect : '/',
+        successRedirect : '/admin/manage',
         failureRedirect : '/admin/login',
         failureFlash : true
     })(req,res,next)
@@ -30,11 +40,13 @@ exports.adminPostLogin = (req,res, next) => {
 
 
 
+
+
 //________________________________ REGISTER ________________________________
 
 // get
 exports.adminGetRegister = (req,res) => {
-    console.log(req.flash("validation_error"))
+    
     res.render('register')
 }
 
@@ -109,6 +121,16 @@ exports.adminGetForgetPassword = (req,res) => {
 
 exports.adminPostForgetPassword = (req,res) => {
     console.log("Forget password send..")
-    res.redirect('/')
+    res.redirect('/login')
 }
 
+
+
+
+//_________________________________ LOGOUT _________________________________
+exports.adminGetLogout = (req,res) => {
+
+    req.session.destroy(() => {
+        res.redirect('/admin/login')
+    })
+}
