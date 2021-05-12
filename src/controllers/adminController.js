@@ -16,6 +16,10 @@ exports.adminGetLogin = (req,res) => {
 // post
 exports.adminPostLogin = (req,res, next) => {
     
+    req.flash('email',req.body.email)
+    req.flash('password',req.body.password)
+
+
     passport.authenticate('local',{
         successRedirect : '/',
         failureRedirect : '/admin/login',

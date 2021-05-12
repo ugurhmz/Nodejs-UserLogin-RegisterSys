@@ -20,7 +20,7 @@ module.exports = function(passport){
             }
 
             if(user_result.password !== password){
-                return done(null, false, { message : "Password did not match."})
+                return done(null, false, { message : "Password wrong!"})
 
             }else {
                 return done(null, user_result)
@@ -34,15 +34,16 @@ module.exports = function(passport){
 
     }))
 
-//____________________________________(1) THE ID VALUE IS SAVING IN THE DB ____________________________
+    //____________________________________(1) THE ID VALUE IS SAVING IN THE DB ____________________________
     passport.serializeUser(function (user,done) {
         console.log("Save session id : "+user.id)
         done(null, user.id)
     })
     
 
-//___________________________________(2) THE ID VALUE IS SEARCHING IN THE DB AGAIN____________    
+    //___________________________________(2) THE ID VALUE IS SEARCHING IN THE DB AGAIN____________    
     passport.deserializeUser(function (id,done) {
+
         User.findById(id , function (err,user) {
             done(err,user)
         })

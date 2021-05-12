@@ -43,7 +43,13 @@ app.use((req,res,next) => {
         res.locals.firstname = req.flash("firstname")
         res.locals.lastname = req.flash("lastname")
         res.locals.email = req.flash("email")
-       
+        
+        //PASSPORT ERROR MSG
+        res.locals.login_error = req.flash("error")
+
+
+
+
         next()
     }
 )

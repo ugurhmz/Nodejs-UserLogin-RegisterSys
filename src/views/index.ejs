@@ -1,21 +1,33 @@
+  
+    
     <%- include ('partials/_header.ejs') -%> 
 
         <div class="container">
-            <ul>
+          
+            <div class="list-group my-4">
+                <a href="/admin/login" class="list-group-item list-group-item-action active" aria-current="true">
+                    Login
+                </a>
+                <a href="/admin/register" class="list-group-item list-group-item-action">
+                    Register
+                </a>
+                <a href="/admin/forget-password" class="list-group-item list-group-item-action">
+                    Forget-password
+                </a>
+               
+              </div>
 
-               <a href="/admin/login">
-                <li>Login</li>
-               </a>
 
-               <a href="/admin/register">
-                <li>Register</li>
-               </a>
 
-               <a href="/admin/forget-password">
-                <li>Forget-password</li>
-               </a>
 
-            </ul>
+            <div class="jumbotron jumbotron-fluid">
+                <div class="container d-flex justify-content-center">
+                  <h1 class="display-5">Welcome : <%= siteUser.email %> </h1>
+                 
+                </div>
+              </div>
+
+
         </div>
 
 

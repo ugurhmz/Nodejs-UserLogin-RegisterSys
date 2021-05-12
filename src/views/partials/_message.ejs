@@ -1,6 +1,6 @@
 
 
-<% if (locals.validation_error != undefined  || locals.success_message != undefined) { %>
+<% if (locals.validation_error != undefined  || locals.success_message != undefined || locals.login_error != undefined) { %>
     <% validation_error.forEach(elem => { %>
         
         <div class="card bg-danger text-white shadow mb-4 alert alert-danger alert-dismissible fade show" role="alert">
@@ -25,5 +25,19 @@
     
 
     <% }) %>
+
+
+    <% login_error.forEach(error => { %>
+        
+        <div class="card bg-danger text-white shadow mb-4 alert alert-danger alert-dismissible fade show" role="alert">
+            <%= error %>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+        </div>
+    
+
+    <% }) %>
+
   
 <% } %>
