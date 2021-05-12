@@ -39,35 +39,43 @@ exports.adminPostRegister = async (req,res) => {
     
     }
     else {
+       //_______________________________________________ USER findOne & create__________________ 
+       try {
 
-        const _user = await User.findOne({email : req.body.email})
+                const _user = await User.findOne({email : req.body.email})
 
-        if(_user){
-            req.flash("validation_error",[{msg:"This email already in use"}])
-            req.flash("firstname", req.body.firstname)
-            req.flash("lastname", req.body.lastname)
-            req.flash("email", req.body.email)
-            req.flash("password",req.body.password)
-            req.flash("repassword",req.body.repassword)
-            
-             res.status(404).redirect('/admin/register')
-             return;
-        }
-        else {
-            const newUser  = new User({
-                firstname : req.body.firstname,
-                lastname : req.body.lastname,
-                email : req.body.email,
-                password : req.body.password
-            })
+                if(_user){
+                    req.flash("validation_error",[{msg:"This email already in use"}])
+                    req.flash("firstname", req.body.firstname)
+                    req.flash("lastname", req.body.lastname)
+                    req.flash("email", req.body.email)
+                    req.flash("password",req.body.password)
+                    req.flash("repassword",req.body.repassword)
+                    
+                    res.status(404).redirect('/admin/register')
+                    return;
+                }
 
-            await newUser.save()
-           
-            console.log("New user added successfull in db.")
-            res.status(200).redirect('/admin/login')
-            return;
-        }
+                //__________________________ If the user is registering for the first time_________
+                else {
+                    const newUser  = new User({
+                        firstname : req.body.firstname,
+                        lastname : req.body.lastname,
+                        email : req.body.email,
+                        password : req.body.password
+                    })
 
+                    await newUser.save()
+                
+                    console.log("New user added successfull in db.")
+                    req.flash("success_message","user added successfull in db.") // save it to locals in app.js
+                    res.status(200).redirect('/admin/login')
+                    return;
+                }
+         } 
+         catch(err) {
+             console.log(err)
+         }
 
     }
 }
