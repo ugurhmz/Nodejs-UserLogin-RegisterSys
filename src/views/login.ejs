@@ -14,6 +14,14 @@
                         <div class="p-5">
                             <div class="text-center">
                                 <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
+                                    
+                                     
+                                <% if (locals.validation_error != undefined || locals.success_message != undefined ) { %>
+                                    <%- include('./partials/_message.ejs') -%>
+                                <% } %>
+
+
+
                             </div>
                             <form action="/admin/login" class="user" method="POST">
                                 <div class="form-group">

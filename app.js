@@ -8,6 +8,7 @@ const adminRoutes = require('./src/routes/adminRoutes')
 const mainRoutes = require('./src/routes/mainRoutes')
 const session = require('express-session')
 const flashMessage = require('connect-flash')
+const passport = require('passport')
 
 
 connectDB()
@@ -46,6 +47,14 @@ app.use((req,res,next) => {
         next()
     }
 )
+
+// PASSPORT
+
+app.use(passport.initialize())
+app.use(passport.session())
+
+
+
 
 
 // 

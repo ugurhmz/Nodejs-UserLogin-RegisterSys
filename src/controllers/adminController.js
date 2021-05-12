@@ -1,28 +1,41 @@
 const { validationResult } = require('express-validator')
 const User = require('../models/userModel')
 
+// PASSPORT
+const passport = require('passport')
+require('../utilities/passport_locals')(passport)
 
 
 //________________________________ LOGIN ________________________________
 
+// get
 exports.adminGetLogin = (req,res) => {
    res.render('login')
 }
 
-
-exports.adminPostLogin = (req,res) => {
-    console.log("Login successfully")
-    res.redirect('/')
+// post
+exports.adminPostLogin = (req,res, next) => {
+    
+    passport.authenticate('local',{
+        successRedirect : '/',
+        failureRedirect : '/admin/login',
+        failureFlash : true
+    })(req,res,next)
+   
 }
 
 
 
 //________________________________ REGISTER ________________________________
+
+// get
 exports.adminGetRegister = (req,res) => {
     console.log(req.flash("validation_error"))
     res.render('register')
 }
 
+
+// post
 exports.adminPostRegister = async (req,res) => {
 
     const validErr = validationResult(req)
@@ -68,7 +81,7 @@ exports.adminPostRegister = async (req,res) => {
                     await newUser.save()
                 
                     console.log("New user added successfull in db.")
-                    req.flash("success_message","user added successfull in db.") // save it to locals in app.js
+                    req.flash("success_message",[{ msg: "user added successfull in db."}]) // save it to locals in app.js
                     res.status(200).redirect('/admin/login')
                     return;
                 }
@@ -82,6 +95,7 @@ exports.adminPostRegister = async (req,res) => {
 
 
 //________________________________ FORGET-PASSWORD ________________________________
+
 exports.adminGetForgetPassword = (req,res) => {
 
     res.render('forget_password')
