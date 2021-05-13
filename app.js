@@ -19,7 +19,13 @@ const sessionStore = new MongoDBStore({
     collection:'sessions'
 })
 
+// 
+app.use(express.static('public'));
+app.use(express.urlencoded({ extended : true }))
 
+// EJS
+app.set("views", path.resolve(__dirname,"./src/views"))
+app.set("view engine","ejs")
 
 // SESSION
 app.use(session(
@@ -65,13 +71,7 @@ app.use(passport.session())
 
 
 
-// 
-app.use(express.static('public'));
-app.use(express.urlencoded({ extended : true }))
 
-// EJS
-app.set("views", path.resolve(__dirname,"./src/views"))
-app.set("view engine","ejs")
 
 // ROUTES
 app.use('/admin',adminRoutes)

@@ -1,5 +1,5 @@
 
-
+// IF LOGED IN
 exports.loggedinUser = (req,res,next) => {
 
     if(req.isAuthenticated()){
@@ -13,3 +13,19 @@ exports.loggedinUser = (req,res,next) => {
     }
 
 }
+
+
+// IF NOT LOGGED IN
+
+exports.notloggedinUser = (req,res,next) => {
+
+    if(!req.isAuthenticated()){
+
+        return next()
+    }
+    else {
+        res.redirect('/admin/manage')
+    }
+
+}
+

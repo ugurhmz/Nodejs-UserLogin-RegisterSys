@@ -130,8 +130,17 @@ exports.adminPostForgetPassword = (req,res) => {
 
 //_________________________________ LOGOUT _________________________________
 exports.adminGetLogout = (req,res) => {
-
-    req.session.destroy(() => {
-        res.redirect('/admin/login')
+    req.logout()
+    req.session.destroy((error) => {
+        res.clearCookie('connect.sid')
+        
+        res.render('login', 
+           {
+            success_message : [{msg:"See you later..."}]
+           }
+        )
+      
     })
+    
+    
 }
