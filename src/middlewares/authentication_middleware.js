@@ -4,6 +4,8 @@ exports.loggedinUser = (req,res,next) => {
 
     if(req.isAuthenticated()){
 
+       
+
         return next()
     }
     else {
@@ -20,7 +22,7 @@ exports.loggedinUser = (req,res,next) => {
 exports.notloggedinUser = (req,res,next) => {
 
     if(!req.isAuthenticated()){
-
+        
         return next()
     }
     else {
