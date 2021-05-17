@@ -42,9 +42,6 @@ app.use(session(
 
 
 
-
-
-
 // FLASH MESSAGE
 app.use(flashMessage())
 app.use((req,res,next) => {
@@ -76,7 +73,9 @@ app.use(passport.session())
 
 // ROUTES
 app.use('/admin',adminRoutes)
-
+app.use('/', (req,res) => {
+    res.render('index')
+})
 
 
 
