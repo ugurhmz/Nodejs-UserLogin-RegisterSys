@@ -21,7 +21,12 @@ const userSchema = new Schema({
             unique : [true,"email must be unique"],    
             lowercase : true       
         },
-
+        
+        isMailActive : {
+            type: Boolean,
+            default : false
+        }
+        ,
         password : {
             type : String,
             required: true,
